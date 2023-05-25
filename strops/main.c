@@ -10,5 +10,13 @@ int main(int argc, char *argv[]) {
 
   printf("%s", str);
 
+  to_lower_case(str);
+
+  printf("%s", str);
+
+  to_upper_case(str);
+
+  printf("%s", str);
+
   return EXIT_SUCCESS;
 }
