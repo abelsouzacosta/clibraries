@@ -95,6 +95,13 @@ void print(const FancyArray *array) {
   printf("]\n--------------------------------\n");
 }
 
+/**
+ * @brief Sets an element in a position withiun the given array
+ *
+ * @param array -> array to set the element
+ * @param index -> index position to fit the element
+ * @param newElement -> the element
+ */
 void set(const FancyArray *array, int index, float newElement) {
   if (array->size == array->capacity) {
     fprintf(stderr,
@@ -112,4 +119,29 @@ void set(const FancyArray *array, int index, float newElement) {
 
     array->data[index] = newElement;
   }
+}
+
+/**
+ * @brief Removes an element at the position
+ *
+ * @param array-> memory address of the array
+ * @index -> index of the element to be removed
+ */
+void remove_element(FancyArray **array, int index) {
+  size_t original_size = (*array)->size;
+  size_t new_size = original_size - 1;
+  FancyArray *new_array = (FancyArray *)create(new_size);
+
+  for (size_t counter = 0; counter < original_size; counter += 1) {
+    if (counter != index) {
+      append(new_array, (*array)->data[counter]);
+    }
+  }
+
+  fprintf(stdout, "Removing element %.2f at position %d", (*array)->data[index],
+          index);
+
+  free((*array)->data);
+  free(*array);
+  *array = new_array;
 }

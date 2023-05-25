@@ -21,4 +21,10 @@ void set(const FancyArray *array, int index, float newElement);
 
 void print(const FancyArray *array);
 
+void erase(const FancyArray *array);
+
+void remove_element(FancyArray **array, int index);
+
+FancyArray clone(FancyArray *array);
+
 #endif
