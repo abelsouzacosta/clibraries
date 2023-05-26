@@ -1,4 +1,4 @@
-#include "../includes/strops.h"
+#include "../include/strops.h"
 #include <stddef.h>
 #include <string.h>
 
