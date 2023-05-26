@@ -13,10 +13,14 @@ CONSOLELIBNAME = libconsole.a
 STROPSDIR = ./strops/
 STROPSOBJ = strops.o
 STROPSLIBNAME = libstrops.a
+PERFCLOCKDIR =./perfclock/
+PERFCLOCKOBJ = perfclock.o
+PERFCLOCKLIBNAME = libperfclock.a 
 
-.PHONY: all fancy console strops clean
 
-all: fancy console strops
+.PHONY: all fancy console strops perfclock clean
+
+all: fancy console strops perfclock clean
 
 fancy: $(FANCYDIR)$(OBJ)$(FANCYOBJ)
 	ar rcs $(FANCYDIR)$(BIN)$(FANCYLIBNAME) $<
@@ -42,9 +46,16 @@ strops: $(STROPSDIR)$(OBJ)$(STROPSOBJ)
 $(STROPSDIR)$(OBJ)$(STROPSOBJ): $(STROPSDIR)$(SRC)strops.c
 	gcc -I $(STROPSDIR)$(INC) -c $< -o $@
 
+perfclock: $(PERFCLOCKDIR)$(OBJ)$(PERFCLOCKOBJ)
+	ar rcs $(PERFCLOCKDIR)$(BIN)$(PERFCLOCKLIBNAME) $<
+	cp $(PERFCLOCKDIR)$(BIN)$(PERFCLOCKLIBNAME) $(LIBDEST)
+	cp $(PERFCLOCKDIR)$(INC)perfclock.h $(HEADERDEST)
+
+$(PERFCLOCKDIR)$(OBJ)$(PERFCLOCKOBJ): $(PERFCLOCKDIR)$(SRC)perfclock.c
+	gcc -I $(PERFCLOCKDIR)$(INC) -c $< -o $@
+
 clean:
 	rm -rf $(FANCYDIR)$(BIN)$(FANCYLIBNAME) $(FANCYDIR)$(OBJ)$(FANCYOBJ)
 	rm -rf $(CONSOLEDIR)$(BIN)$(CONSOLELIBNAME) $(CONSOLEDIR)$(OBJ)$(CONSOLEOBJ)
 	rm -rf $(STROPSDIR)$(BIN)$(STROPSLIBNAME) $(STROPSDIR)$(OBJ)$(STROPSOBJ)
-
-all: fancy strops console clean
+	rm -rf $(PERFCLOCKDIR)$(BIN)$(PERFCLOCKLIBNAME) $(PERFCLOCKDIR)$(OBJ)$(PERFCLOCKOBJ)
